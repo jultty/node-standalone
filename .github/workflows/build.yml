@@ -1,0 +1,25 @@
+name: Lint, format-check, build and test
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+      - name: Lint
+        run: npm run lint
+      - name: Format check
+        run: npm run format-check
+      - name: Build
+        run: npm run build
+      - name: Start app
+        run: npm start &
+      - name: Wait for app start
+        run: npm run wait 
+      - name: Test
+        run: npm test
+      - name: Stop app
+        run: npm stop
